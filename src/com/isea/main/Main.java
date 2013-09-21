@@ -10,8 +10,10 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.net.URLDecoder;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
@@ -20,6 +22,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
@@ -40,6 +43,7 @@ public class Main extends JFrame {
 	private JTextArea logger;
 	private JProgressBar progress;
 	private JLabel message;
+	private JButton downloadBtn;
 	
 	private JFileChooser chooser;
 	/**
@@ -117,15 +121,17 @@ public class Main extends JFrame {
 		panel.add(panel_2, BorderLayout.NORTH);
 		panel_2.setLayout(new BorderLayout(0, 0));
 		
-		JButton downloadBtn = new JButton("开始下载");
+		downloadBtn = new JButton("开始下载");
 		downloadBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//下载方法
+				downloadBtn.setEnabled(false);
 				Thread thread = new Thread(new Runnable() {
 					public void run() {
 						try {
 							BasePanel panel = (BasePanel)tabbedPane.getSelectedComponent();
 							panel.download(savePath.getText());
+							downloadBtn.setEnabled(true);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -175,15 +181,42 @@ public class Main extends JFrame {
 		savePath.setColumns(10);
 		
 		JButton btnNewButton = new JButton("暂停");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Thread thread = new Thread(new Runnable() {
+					public void run() {
+						try {
+							BasePanel panel = (BasePanel)tabbedPane.getSelectedComponent();
+							panel.stop();
+							downloadBtn.setEnabled(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+				thread.start();
+			}
+		});
 		btnNewButton.setPreferredSize(new Dimension(77, 30));
 		panel_2.add(btnNewButton, BorderLayout.EAST);
 		
-		/**添加panel*/
+		/**載入插件*/
 		lodePlugin();
 	}
 	
+	/**
+	 * 載入插件
+	 */
 	public void lodePlugin(){
-		String basePath = this.getClass().getResource("/").getPath();
+		String temp = null;
+		try {
+			temp = URLDecoder.decode(Main.class.getProtectionDomain().getCodeSource().getLocation().getFile(), "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			JOptionPane.showMessageDialog(Main.this, e1.getMessage());
+			return;
+		}  
+         
+		String basePath = temp.substring(0, temp.lastIndexOf('/'));  
 		String pluginPath = basePath+"/plugin";
 		String pluginConfig = pluginPath+"/plugin.ini";
 		Properties properties = new Properties();
@@ -220,8 +253,5 @@ public class Main extends JFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
-		System.out.println();
 	}
 }

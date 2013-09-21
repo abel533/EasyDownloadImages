@@ -10,6 +10,7 @@ public abstract class BasePanel extends JPanel implements ILoggerProgress {
 	protected JTextArea logger;
 	protected JProgressBar progress;
 	protected JLabel message;
+	protected IDownload downloadHelper;
 	
 	@Override
 	public void setLogger(JTextArea logger) {
@@ -30,7 +31,8 @@ public abstract class BasePanel extends JPanel implements ILoggerProgress {
 	 * 放入下載類
 	 * @param helper
 	 */
-	public void setDownloadHelper(ILoggerProgress helper){
+	public void setDownloadHelper(IDownload helper){
+		this.downloadHelper = helper;
 		helper.setLogger(logger);
 		helper.setMessage(message);
 		helper.setProgress(progress);
@@ -86,4 +88,9 @@ public abstract class BasePanel extends JPanel implements ILoggerProgress {
 	 * 清空信息
 	 */
 	public abstract void clear();
+	
+	/**
+	 * 停止下载
+	 */
+	public abstract void stop();
 }
