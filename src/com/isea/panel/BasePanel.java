@@ -10,28 +10,35 @@ import com.isea.plugin.normal.NormalDownLoad;
 
 public abstract class BasePanel extends JPanel implements ILoggerProgress {
 	private static final long serialVersionUID = -7899620878551765439L;
-	protected NormalDownLoad downLoadUtils = new NormalDownLoad();
-	private JTextArea logger;
-	private JProgressBar progress;
-	private JLabel message;
+	protected JTextArea logger;
+	protected JProgressBar progress;
+	protected JLabel message;
 	
 	@Override
 	public void setLogger(JTextArea logger) {
 		this.logger = logger;
-		downLoadUtils.setLogger(logger);;
 	}
 	
 	@Override
 	public void setProgress(JProgressBar progress) {
 		this.progress = progress;
-		downLoadUtils.setProgress(progress);
 	}
 
 	@Override
 	public void setMessage(JLabel message) {
 		this.message = message;
-		downLoadUtils.setMessage(message);
 	}
+	
+	/**
+	 * 放入下載類
+	 * @param helper
+	 */
+	public void setDownloadHelper(ILoggerProgress helper){
+		helper.setLogger(logger);
+		helper.setMessage(message);
+		helper.setProgress(progress);
+	}
+	
 	
 	@Override
 	public void log(String str) {

@@ -101,7 +101,9 @@ public class NormalPanel extends BasePanel {
 		}
 		log("开始下载");
 		log("保存路径:"+savePath);
-		downLoadUtils.downloadMore(savePath, 
+		NormalDownLoad normalDownLoad = new NormalDownLoad();
+		this.setDownloadHelper(normalDownLoad);
+		normalDownLoad.downloadMore(savePath, 
 				url.getText(), 
 				selector.getText(), 
 				page.getText(),

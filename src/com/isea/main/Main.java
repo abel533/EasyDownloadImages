@@ -6,10 +6,12 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileInputStream;
+import java.io.File;
+import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
@@ -28,7 +30,6 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import com.isea.panel.BasePanel;
-import com.isea.plugin.normal.NormalPanel;
 
 public class Main extends JFrame {
 	private static final long serialVersionUID = 8817586638061060424L;
@@ -176,29 +177,38 @@ public class Main extends JFrame {
 		try {
 			properties.load(new FileReader(pluginConfig));
 			Set<Entry<Object, Object>> sets = properties.entrySet();
-			for(Entry<Object, Object> set:sets){
-				System.out.println(set.getKey()+","+set.getValue());
+			//load jar
+			File pluginFile = new File(pluginPath);
+			File[] pluginJars = pluginFile.listFiles(new FileFilter() {
+				@Override
+				public boolean accept(File jarFile) {
+					if(jarFile.getName().toUpperCase().endsWith(".JAR")){
+						return true;
+					}
+					return false;
+				}
+			});
+			URL[] jarUrls = new URL[pluginJars.length];
+			for(int i=0;i<pluginJars.length;i++){
+				jarUrls[i] = pluginJars[i].toURI().toURL();
 			}
+			URLClassLoader loader = new URLClassLoader(jarUrls);
+			
+			for(Entry<Object, Object> set:sets){
+				BasePanel basePanel = (BasePanel)loader.loadClass(set.getValue().toString()).newInstance();
+				basePanel.setLogger(logger);
+				basePanel.setMessage(message);
+				basePanel.setProgress(progress);
+				tabbedPane.add(set.getKey().toString(), basePanel);
+			}
+			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		
 		System.out.println();
-		/*
-		 File file = new File("/root/workspace/RPT2.9SP1/WebContent/WEB-INF/lib/ojdbc14.jar");  
-	     URLClassLoader loader = new URLClassLoader(new URL[] { file.toURI().toURL() });  
-	        Class clazz = loader.loadClass("oracle.jdbc.driver.OracleDriver");  
-	        Driver driver = (Driver) clazz.newInstance();  
-		
-		*/
-		
-		NormalPanel normalPanel = new NormalPanel();
-		normalPanel.setLogger(logger);
-		normalPanel.setMessage(message);
-		normalPanel.setProgress(progress);
-		tabbedPane.add("一般模式", normalPanel);
 	}
 }
