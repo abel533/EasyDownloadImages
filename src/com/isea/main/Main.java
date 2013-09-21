@@ -19,7 +19,8 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import com.isea.panel.BasePanel;
-import com.isea.panel.NormalPanel;
+import com.isea.plugin.normal.NormalPanel;
+
 import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
 
@@ -77,6 +78,7 @@ public class Main extends JFrame {
 		panel.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new EmptyBorder(0, 0, 0, 7));
 		panel_1.setPreferredSize(new Dimension(10, 20));
 		panel.add(panel_1, BorderLayout.SOUTH);
 		panel_1.setLayout(new BorderLayout(0, 0));

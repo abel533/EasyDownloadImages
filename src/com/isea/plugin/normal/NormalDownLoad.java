@@ -1,4 +1,4 @@
-package com.isea.common;
+package com.isea.plugin.normal;
 
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -13,8 +13,9 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.isea.basic.ALoggerProgress;
+import com.isea.common.Md5Utils;
 
-public class DownLoadUtils extends ALoggerProgress{
+public class NormalDownLoad extends ALoggerProgress{
 	
 	/**
 	 * 获取图片下载地址
@@ -46,7 +47,7 @@ public class DownLoadUtils extends ALoggerProgress{
 	 * 获取地址测试
 	 */
 	public static void testGetSrcPath(){
-		DownLoadUtils downLoadUtils = new DownLoadUtils();
+		NormalDownLoad downLoadUtils = new NormalDownLoad();
 		List<String> list = null;
 		try {
 			list = downLoadUtils.getSrcPath("http://joyreactor.cc/tag/%25D0%25BB%25D0%25B0%25D1%2582%25D0%25B5%25D0%25BA%25D1%2581/4", "div.image img");
@@ -174,7 +175,7 @@ public class DownLoadUtils extends ALoggerProgress{
 	
 	
 	public static void testDown(){
-		DownLoadUtils downLoadUtils = new DownLoadUtils();
+		NormalDownLoad downLoadUtils = new NormalDownLoad();
 		downLoadUtils.download("/home/liuzh/Downloads/temp/",
 				"http://joyreactor.cc/tag/%25D0%25BB%25D0%25B0%25D1%2582%25D0%25B5%25D0%25BA%25D1%2581/4", 
 				"div.image img"

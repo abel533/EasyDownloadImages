@@ -1,4 +1,4 @@
-package com.isea.panel;
+package com.isea.plugin.normal;
 import java.awt.Dimension;
 
 import javax.swing.JLabel;
@@ -6,6 +6,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import com.isea.panel.BasePanel;
 
 
 public class NormalPanel extends BasePanel {
