@@ -17,6 +17,7 @@ import java.util.Properties;
 import java.util.Set;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -39,6 +40,8 @@ public class Main extends JFrame {
 	private JTextArea logger;
 	private JProgressBar progress;
 	private JLabel message;
+	
+	private JFileChooser chooser;
 	/**
 	 * Launch the application.
 	 */
@@ -154,6 +157,16 @@ public class Main extends JFrame {
 		panel_3.add(label, BorderLayout.WEST);
 		
 		JButton choosePath = new JButton("选择位置");
+		choosePath.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				chooser = new JFileChooser();
+				chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);  
+	            int returnVal = chooser.showOpenDialog(Main.this);  
+	            if (returnVal == JFileChooser.APPROVE_OPTION) {  
+	            	 savePath.setText(chooser.getSelectedFile().getAbsolutePath()); 
+	            }  
+			}
+		});
 		panel_3.add(choosePath, BorderLayout.EAST);
 		
 		savePath = new JTextField();
