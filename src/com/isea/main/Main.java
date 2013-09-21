@@ -6,6 +6,13 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Map.Entry;
+import java.util.Properties;
+import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,13 +23,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import com.isea.panel.BasePanel;
 import com.isea.plugin.normal.NormalPanel;
-
-import javax.swing.ScrollPaneConstants;
-import javax.swing.UIManager;
 
 public class Main extends JFrame {
 	private static final long serialVersionUID = 8817586638061060424L;
@@ -163,6 +169,32 @@ public class Main extends JFrame {
 	}
 	
 	public void lodePlugin(){
+		String basePath = this.getClass().getResource("/").getPath();
+		String pluginPath = basePath+"/plugin";
+		String pluginConfig = pluginPath+"/plugin.ini";
+		Properties properties = new Properties();
+		try {
+			properties.load(new FileReader(pluginConfig));
+			Set<Entry<Object, Object>> sets = properties.entrySet();
+			for(Entry<Object, Object> set:sets){
+				System.out.println(set.getKey()+","+set.getValue());
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		System.out.println();
+		/*
+		 File file = new File("/root/workspace/RPT2.9SP1/WebContent/WEB-INF/lib/ojdbc14.jar");  
+	     URLClassLoader loader = new URLClassLoader(new URL[] { file.toURI().toURL() });  
+	        Class clazz = loader.loadClass("oracle.jdbc.driver.OracleDriver");  
+	        Driver driver = (Driver) clazz.newInstance();  
+		
+		*/
+		
 		NormalPanel normalPanel = new NormalPanel();
 		normalPanel.setLogger(logger);
 		normalPanel.setMessage(message);
