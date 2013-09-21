@@ -13,7 +13,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.isea.basic.ALoggerProgress;
-import com.isea.common.Md5Utils;
+import com.isea.basic.Md5Utils;
 
 public class NormalDownLoad extends ALoggerProgress{
 	

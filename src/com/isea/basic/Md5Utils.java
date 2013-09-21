@@ -1,4 +1,4 @@
-package com.isea.common;
+package com.isea.basic;
 
 import java.security.MessageDigest;
 
