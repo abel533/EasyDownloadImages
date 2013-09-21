@@ -29,7 +29,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
-import com.isea.panel.BasePanel;
+import com.isea.basic.BasePanel;
 
 public class Main extends JFrame {
 	private static final long serialVersionUID = 8817586638061060424L;

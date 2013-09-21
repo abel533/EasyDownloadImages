@@ -1,11 +1,9 @@
-package com.isea.panel;
+package com.isea.basic;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
-
-import com.isea.basic.ILoggerProgress;
 
 public abstract class BasePanel extends JPanel implements ILoggerProgress {
 	private static final long serialVersionUID = -7899620878551765439L;

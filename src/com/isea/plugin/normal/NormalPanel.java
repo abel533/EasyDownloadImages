@@ -7,7 +7,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import com.isea.panel.BasePanel;
+import com.isea.basic.BasePanel;
 
 
 public class NormalPanel extends BasePanel {
