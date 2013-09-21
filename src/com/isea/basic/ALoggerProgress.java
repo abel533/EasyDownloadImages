@@ -29,6 +29,7 @@ public abstract class ALoggerProgress implements ILoggerProgress{
 	public void log(String str) {
 		if(logger!=null){
 			logger.append(str+"\n");
+			logger.setCaretPosition(logger.getDocument().getLength());
 		}
 		else {
 			System.out.println(str);
