@@ -6,16 +6,9 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileFilter;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.UnsupportedEncodingException;
-import java.net.URL;
 import java.net.URLClassLoader;
-import java.net.URLDecoder;
 import java.util.Map.Entry;
-import java.util.Properties;
 import java.util.Set;
 
 import javax.swing.JButton;
@@ -34,6 +27,7 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import com.isea.basic.BasePanel;
+import com.isea.basic.LoadUtils;
 
 public class Main extends JFrame {
 	private static final long serialVersionUID = 8817586638061060424L;
@@ -208,37 +202,18 @@ public class Main extends JFrame {
 	 * 載入插件
 	 */
 	public void lodePlugin(){
-		String temp = null;
+		String pluginPath = null;
 		try {
-			temp = URLDecoder.decode(Main.class.getProtectionDomain().getCodeSource().getLocation().getFile(), "UTF-8");
-		} catch (UnsupportedEncodingException e1) {
-			JOptionPane.showMessageDialog(Main.this, e1.getMessage());
+			pluginPath = LoadUtils.getProjectPath(this.getClass())+"/plugin";
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(Main.this, e.getMessage());
 			return;
-		}  
-         
-		String basePath = temp.substring(0, temp.lastIndexOf('/'));  
-		String pluginPath = basePath+"/plugin";
-		String pluginConfig = pluginPath+"/plugin.ini";
-		Properties properties = new Properties();
+		}
 		try {
-			properties.load(new FileReader(pluginConfig));
-			Set<Entry<Object, Object>> sets = properties.entrySet();
 			//load jar
-			File pluginFile = new File(pluginPath);
-			File[] pluginJars = pluginFile.listFiles(new FileFilter() {
-				@Override
-				public boolean accept(File jarFile) {
-					if(jarFile.getName().toUpperCase().endsWith(".JAR")){
-						return true;
-					}
-					return false;
-				}
-			});
-			URL[] jarUrls = new URL[pluginJars.length];
-			for(int i=0;i<pluginJars.length;i++){
-				jarUrls[i] = pluginJars[i].toURI().toURL();
-			}
-			URLClassLoader loader = new URLClassLoader(jarUrls);
+			URLClassLoader loader = LoadUtils.loadJars(pluginPath);
+			//loadIni
+			Set<Entry<Object, Object>> sets = LoadUtils.loadInis(pluginPath);
 			
 			for(Entry<Object, Object> set:sets){
 				BasePanel basePanel = (BasePanel)loader.loadClass(set.getValue().toString()).newInstance();
@@ -247,11 +222,14 @@ public class Main extends JFrame {
 				basePanel.setProgress(progress);
 				tabbedPane.add(set.getKey().toString(), basePanel);
 			}
-			
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(Main.this, e.getMessage());
+			return;
 		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(Main.this, e.getMessage());
+			return;
 		}
 	}
+	
+	
 }
