@@ -9,7 +9,6 @@ EasyDownloadImages
 
 欢迎各位fork修改....
 
-下一步：重构整个项目，使用maven管理
-======
-
- * 使用maven管理后，插件作为子项目开发
+插件使用
+ * 将插件的jar包放到plugin下，添加plugin.ini配置，程序启动即可看到
+ * 每个插件可以拥有一个对应的plugin.ini，如:tieba.ini，添加插件时，将ini和jar放入到plugin下即可。
