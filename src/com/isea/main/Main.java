@@ -30,6 +30,7 @@ import source.Icon;
 
 import com.isea.basic.BasePanel;
 import com.isea.basic.LoadUtils;
+import javax.swing.SwingConstants;
 
 public class Main extends JFrame {
 	private static final long serialVersionUID = 8817586638061060424L;
@@ -111,7 +112,7 @@ public class Main extends JFrame {
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new EmptyBorder(0, 0, 4, 8));
-		panel_2.setPreferredSize(new Dimension(10, 74));
+		panel_2.setPreferredSize(new Dimension(10, 118));
 		panel.add(panel_2, BorderLayout.NORTH);
 		panel_2.setLayout(new BorderLayout(0, 0));
 		
@@ -126,7 +127,7 @@ public class Main extends JFrame {
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new EmptyBorder(5, 0, 5, 0));
-		panel_3.setPreferredSize(new Dimension(10, 40));
+		panel_3.setPreferredSize(new Dimension(10, 80));
 		panel_2.add(panel_3, BorderLayout.NORTH);
 		panel_3.setLayout(new BorderLayout(0, 0));
 		
@@ -142,6 +143,27 @@ public class Main extends JFrame {
 		panel_3.add(savePath, BorderLayout.CENTER);
 		savePath.setColumns(10);
 		
+		JPanel panel_4 = new JPanel();
+		panel_4.setBorder(new EmptyBorder(0, 0, 0, 0));
+		panel_4.setPreferredSize(new Dimension(10, 34));
+		panel_3.add(panel_4, BorderLayout.NORTH);
+		panel_4.setLayout(null);
+		
+		JLabel label_1 = new JLabel("超时时间：");
+		label_1.setBounds(0, 10, 69, 15);
+		panel_4.add(label_1);
+		
+		timeout = new JTextField();
+		timeout.setHorizontalAlignment(SwingConstants.RIGHT);
+		timeout.setText("3000");
+		timeout.setBounds(69, 0, 114, 30);
+		panel_4.add(timeout);
+		timeout.setColumns(10);
+		
+		JLabel lblNewLabel = new JLabel("ms          0ms为不限时");
+		lblNewLabel.setBounds(185, 10, 319, 15);
+		panel_4.add(lblNewLabel);
+		
 		JButton stopBtn = new JButton("停止下载");
 		stopBtn.addActionListener(stopListener);
 		stopBtn.setPreferredSize(new Dimension(77, 34));
@@ -156,11 +178,21 @@ public class Main extends JFrame {
 		public void actionPerformed(ActionEvent arg0) {
 			//下载方法
 			downloadBtn.setEnabled(false);
+			final int _timeout;
+			try {
+				if(timeout.getText().equals("")){
+					throw new Exception("超时时间不能为空!");
+				}
+				_timeout = Integer.parseInt(timeout.getText());
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(Main.this, e.getMessage(), "提示", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
 			Thread thread = new Thread(new Runnable() {
 				public void run() {
 					try {
 						BasePanel panel = (BasePanel)tabbedPane.getSelectedComponent();
-						panel.download(savePath.getText());
+						panel.download(savePath.getText(),_timeout);
 						downloadBtn.setEnabled(true);
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -209,6 +241,7 @@ public class Main extends JFrame {
 			thread.start();
 		}
 	};
+	private JTextField timeout;
 	
 	/**載入插件*/
 	public void lodePlugin(){
@@ -240,6 +273,4 @@ public class Main extends JFrame {
 			return;
 		}
 	}
-	
-	
 }
