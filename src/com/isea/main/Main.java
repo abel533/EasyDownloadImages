@@ -67,7 +67,7 @@ public class Main extends JFrame {
 	/**界面*/
 	public Main() {
 		setIconImage(Icon.download.getImage());
-		setTitle("图片批量下载");
+		setTitle("图片批量下载 - abel533 - https://github.com/abel533/EasyDownloadImages");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 592, 603);
@@ -95,6 +95,7 @@ public class Main extends JFrame {
 		panel_1.add(message, BorderLayout.WEST);
 		
 		progress = new JProgressBar();
+		progress.setStringPainted(true);
 		panel_1.add(progress, BorderLayout.CENTER);
 		
 		JScrollPane scrollPane = new JScrollPane();
