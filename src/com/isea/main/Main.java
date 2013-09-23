@@ -111,7 +111,7 @@ public class Main extends JFrame {
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new EmptyBorder(0, 0, 0, 8));
-		panel_2.setPreferredSize(new Dimension(10, 60));
+		panel_2.setPreferredSize(new Dimension(10, 70));
 		panel.add(panel_2, BorderLayout.NORTH);
 		panel_2.setLayout(new BorderLayout(0, 0));
 		
@@ -148,7 +148,8 @@ public class Main extends JFrame {
 		panel_2.add(clearBtn, BorderLayout.WEST);
 		
 		JPanel panel_3 = new JPanel();
-		panel_3.setPreferredSize(new Dimension(10, 30));
+		panel_3.setBorder(new EmptyBorder(5, 0, 5, 0));
+		panel_3.setPreferredSize(new Dimension(10, 40));
 		panel_2.add(panel_3, BorderLayout.NORTH);
 		panel_3.setLayout(new BorderLayout(0, 0));
 		
