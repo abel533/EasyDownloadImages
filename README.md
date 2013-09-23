@@ -18,5 +18,5 @@ EasyDownloadImages
  * 学习:http://www.ruanyifeng.com/blog/2009/03/css_selectors.html
  
 已打包程序下载地址：    
-http://pan.baidu.com/share/link?shareid=2923414300&uk=1325762948 
+http://pan.baidu.com/share/link?shareid=3417273982&uk=1325762948
 
