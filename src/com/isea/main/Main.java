@@ -170,7 +170,6 @@ public class Main extends JFrame {
 		panel_3.add(choosePath, BorderLayout.EAST);
 		
 		savePath = new JTextField();
-		savePath.setText("/home/liuzh/Downloads/temp/");
 		panel_3.add(savePath, BorderLayout.CENTER);
 		savePath.setColumns(10);
 		
