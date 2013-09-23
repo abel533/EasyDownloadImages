@@ -15,6 +15,7 @@ EasyDownloadImages
 
 关于图片选择器
  * 需要有一定的css选择器知识，不了解的可以简单看看jquery的选择器部分的讲解。
+ * 学习:http://www.ruanyifeng.com/blog/2009/03/css_selectors.html
  
 已打包程序下载地址：    
 http://pan.baidu.com/share/link?shareid=2923414300&uk=1325762948 
