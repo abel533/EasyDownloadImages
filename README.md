@@ -13,6 +13,9 @@ EasyDownloadImages
  * 将插件的jar包放到plugin下，添加plugin.ini配置，程序启动即可看到
  * 每个插件可以拥有一个对应的plugin.ini，如:tieba.ini，添加插件时，将ini和jar放入到plugin下即可。
 
+关于图片选择器
+ * 需要有一定的css选择器知识，不了解的可以简单看看jquery的选择器部分的讲解。
+ 
 已打包程序下载地址：    
 http://pan.baidu.com/share/link?shareid=551261395&uk=1325762948  
 程序运行需要jre支持。 
