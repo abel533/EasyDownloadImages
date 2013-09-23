@@ -38,11 +38,9 @@ public class Main extends JFrame {
 	private JProgressBar progress;
 	private JLabel message;
 	private JButton downloadBtn;
-	
 	private JFileChooser chooser;
-	/**
-	 * Launch the application.
-	 */
+	
+	/**启动*/
 	public static void main(String[] args) {
 		try {
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
@@ -64,9 +62,7 @@ public class Main extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+	/**界面*/
 	public Main() {
 		setTitle("图片批量下载");
 		setResizable(false);
@@ -110,41 +106,18 @@ public class Main extends JFrame {
 		scrollPane.setViewportView(logger);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBorder(new EmptyBorder(0, 0, 0, 8));
-		panel_2.setPreferredSize(new Dimension(10, 70));
+		panel_2.setBorder(new EmptyBorder(0, 0, 4, 8));
+		panel_2.setPreferredSize(new Dimension(10, 74));
 		panel.add(panel_2, BorderLayout.NORTH);
 		panel_2.setLayout(new BorderLayout(0, 0));
 		
 		downloadBtn = new JButton("开始下载");
-		downloadBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				//下载方法
-				downloadBtn.setEnabled(false);
-				Thread thread = new Thread(new Runnable() {
-					public void run() {
-						try {
-							BasePanel panel = (BasePanel)tabbedPane.getSelectedComponent();
-							panel.download(savePath.getText());
-							downloadBtn.setEnabled(true);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-				});
-				thread.start();
-				
-			}
-		});
+		downloadBtn.addActionListener(downloadListener);
 		panel_2.add(downloadBtn, BorderLayout.CENTER);
 		
 		JButton clearBtn = new JButton("清空");
-		clearBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				BasePanel panel = (BasePanel)tabbedPane.getSelectedComponent();
-				panel.clear();
-			}
-		});
-		clearBtn.setPreferredSize(new Dimension(70, 30));
+		clearBtn.addActionListener(emptyListener);
+		clearBtn.setPreferredSize(new Dimension(70, 34));
 		panel_2.add(clearBtn, BorderLayout.WEST);
 		
 		JPanel panel_3 = new JPanel();
@@ -154,53 +127,86 @@ public class Main extends JFrame {
 		panel_3.setLayout(new BorderLayout(0, 0));
 		
 		JLabel label = new JLabel("保存位置：");
-		label.setPreferredSize(new Dimension(70, 30));
+		label.setPreferredSize(new Dimension(70, 34));
 		panel_3.add(label, BorderLayout.WEST);
 		
 		JButton choosePath = new JButton("选择位置");
-		choosePath.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				chooser = new JFileChooser();
-				chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);  
-	            int returnVal = chooser.showOpenDialog(Main.this);  
-	            if (returnVal == JFileChooser.APPROVE_OPTION) {  
-	            	 savePath.setText(chooser.getSelectedFile().getAbsolutePath()); 
-	            }  
-			}
-		});
+		choosePath.addActionListener(chooseListener);
 		panel_3.add(choosePath, BorderLayout.EAST);
 		
 		savePath = new JTextField();
 		panel_3.add(savePath, BorderLayout.CENTER);
 		savePath.setColumns(10);
 		
-		JButton btnNewButton = new JButton("暂停");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Thread thread = new Thread(new Runnable() {
-					public void run() {
-						try {
-							BasePanel panel = (BasePanel)tabbedPane.getSelectedComponent();
-							panel.stop();
-							downloadBtn.setEnabled(true);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-				});
-				thread.start();
-			}
-		});
-		btnNewButton.setPreferredSize(new Dimension(77, 30));
-		panel_2.add(btnNewButton, BorderLayout.EAST);
+		JButton stopBtn = new JButton("停止下载");
+		stopBtn.addActionListener(stopListener);
+		stopBtn.setPreferredSize(new Dimension(77, 34));
+		panel_2.add(stopBtn, BorderLayout.EAST);
 		
 		/**載入插件*/
 		lodePlugin();
 	}
 	
-	/**
-	 * 載入插件
-	 */
+	/**下载*/
+	private ActionListener downloadListener = new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+			//下载方法
+			downloadBtn.setEnabled(false);
+			Thread thread = new Thread(new Runnable() {
+				public void run() {
+					try {
+						BasePanel panel = (BasePanel)tabbedPane.getSelectedComponent();
+						panel.download(savePath.getText());
+						downloadBtn.setEnabled(true);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
+			thread.start();
+			
+		}
+	};
+	
+	/**清空*/
+	private ActionListener emptyListener = new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+			BasePanel panel = (BasePanel)tabbedPane.getSelectedComponent();
+			panel.clear();
+		}
+	};
+	
+	/**选择文件位置*/
+	private ActionListener chooseListener = new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+			chooser = new JFileChooser();
+			chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);  
+            int returnVal = chooser.showOpenDialog(Main.this);  
+            if (returnVal == JFileChooser.APPROVE_OPTION) {  
+            	 savePath.setText(chooser.getSelectedFile().getAbsolutePath()); 
+            }  
+		}
+	};
+	
+	/**停止下载*/
+	private ActionListener stopListener = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			Thread thread = new Thread(new Runnable() {
+				public void run() {
+					try {
+						BasePanel panel = (BasePanel)tabbedPane.getSelectedComponent();
+						panel.stop();
+						downloadBtn.setEnabled(true);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
+			thread.start();
+		}
+	};
+	
+	/**載入插件*/
 	public void lodePlugin(){
 		String pluginPath = null;
 		try {
