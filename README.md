@@ -17,5 +17,5 @@ EasyDownloadImages
  * 需要有一定的css选择器知识，不了解的可以简单看看jquery的选择器部分的讲解。
  
 已打包程序下载地址：    
-http://pan.baidu.com/share/link?shareid=551261395&uk=1325762948  
-程序运行需要jre支持。 
+http://pan.baidu.com/share/link?shareid=2923414300&uk=1325762948 
+

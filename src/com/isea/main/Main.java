@@ -26,6 +26,8 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
+import source.Icon;
+
 import com.isea.basic.BasePanel;
 import com.isea.basic.LoadUtils;
 
@@ -64,6 +66,7 @@ public class Main extends JFrame {
 
 	/**界面*/
 	public Main() {
+		setIconImage(Icon.download.getImage());
 		setTitle("图片批量下载");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
