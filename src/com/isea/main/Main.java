@@ -31,6 +31,9 @@ import source.Icon;
 import com.isea.basic.BasePanel;
 import com.isea.basic.LoadUtils;
 import javax.swing.SwingConstants;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 public class Main extends JFrame {
 	private static final long serialVersionUID = 8817586638061060424L;
@@ -72,6 +75,48 @@ public class Main extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 592, 603);
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu menuProcess = new JMenu("操作");
+		menuBar.add(menuProcess);
+		
+		JMenuItem menuItemSaveParameters = new JMenuItem("保存当前参数配置");
+		menuProcess.add(menuItemSaveParameters);
+		
+		JMenuItem menuItemReadParameters = new JMenuItem("读取参数配置文件");
+		menuProcess.add(menuItemReadParameters);
+		
+		JMenuItem menuItemSaveLog = new JMenuItem("保存日志");
+		menuProcess.add(menuItemSaveLog);
+		
+		JMenuItem menuItemClearLog = new JMenuItem("清空日志");
+		menuProcess.add(menuItemClearLog);
+		
+		JMenu menuPlugin = new JMenu("插件管理");
+		menuBar.add(menuPlugin);
+		
+		JMenuItem menuItemPlugin = new JMenuItem("插件管理");
+		menuPlugin.add(menuItemPlugin);
+		
+		JMenu menuHelp = new JMenu("帮助");
+		menuBar.add(menuHelp);
+		
+		JMenuItem menuItemHelp = new JMenuItem("使用帮助");
+		menuHelp.add(menuItemHelp);
+		
+		JMenuItem menuItemLearn = new JMenuItem("学习选择器");
+		menuHelp.add(menuItemLearn);
+		
+		JMenuItem menuItemSorftUrl = new JMenuItem("访问软件地址");
+		menuHelp.add(menuItemSorftUrl);
+		
+		JMenuItem menuItemCheckUpdata = new JMenuItem("检查更新");
+		menuHelp.add(menuItemCheckUpdata);
+		
+		JMenuItem menuItemAbout = new JMenuItem("关于");
+		menuHelp.add(menuItemAbout);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -81,7 +126,7 @@ public class Main extends JFrame {
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 		
 		JPanel panel = new JPanel();
-		panel.setPreferredSize(new Dimension(10, 330));
+		panel.setPreferredSize(new Dimension(10, 300));
 		contentPane.add(panel, BorderLayout.SOUTH);
 		panel.setLayout(new BorderLayout(0, 0));
 		
