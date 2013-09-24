@@ -19,3 +19,6 @@ EasyDownloadImages
  
 已打包程序下载地址：    
 http://pan.baidu.com/share/link?shareid=3417273982&uk=1325762948
+
+2.0版本计划
+ * 主要增加菜单，实现一些常用的功能
