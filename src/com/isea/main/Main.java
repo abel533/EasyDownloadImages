@@ -71,7 +71,7 @@ public class Main extends JFrame {
 	/**界面*/
 	public Main() {
 		setIconImage(Icon.download.getImage());
-		setTitle("图片批量下载 - abel533 - https://github.com/abel533/EasyDownloadImages");
+		setTitle("图片批量下载 - abel533");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 592, 603);
