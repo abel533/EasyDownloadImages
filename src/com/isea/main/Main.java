@@ -1,39 +1,18 @@
 package com.isea.main;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.EventQueue;
+import com.isea.basic.BasePanel;
+import com.isea.basic.LoadUtils;
+import source.Icon;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.net.URLClassLoader;
 import java.util.Map.Entry;
 import java.util.Set;
-
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.UIManager;
-import javax.swing.border.EmptyBorder;
-
-import source.Icon;
-
-import com.isea.basic.BasePanel;
-import com.isea.basic.LoadUtils;
-import javax.swing.SwingConstants;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
 
 public class Main extends JFrame {
 	private static final long serialVersionUID = 8817586638061060424L;
